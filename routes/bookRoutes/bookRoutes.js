@@ -1,6 +1,8 @@
-const upload = require('../../middleware/upload/uploadMiddlerware');
-const express = require('express');
+
+const express = require("express");
 const routes = express.Router();
+
+const upload = require("../../middleware/upload/uploadMiddlerware");
 
 const {
     bookCreateController,
@@ -12,19 +14,19 @@ const {
     filterBookController,
     sortBookController,
     paginateBookController
-} = require('../../controllers/book/bookController');
+} = require("../../controllers/book/bookController");
 
 const {
     authentication,
     authorization
-} = require('../../middleware/auth/authMiddleware');
+} = require("../../middleware/auth/authMiddleware");
 
-const allRoles = ['admin', 'librarian', 'member'];
-const staffRoles = ['admin', 'librarian'];
+const allRoles = ["admin", "librarian", "member"];
+const staffRoles = ["admin", "librarian"];
 
-// Create book
+// Create book with image upload
 routes.post(
-    '/',
+    "/",
     authentication,
     authorization(staffRoles),
     upload.single("image"),
@@ -33,7 +35,7 @@ routes.post(
 
 // Search books
 routes.get(
-    '/search',
+    "/search",
     authentication,
     authorization(allRoles),
     searchBookController
@@ -41,7 +43,7 @@ routes.get(
 
 // Filter books
 routes.get(
-    '/filter',
+    "/filter",
     authentication,
     authorization(allRoles),
     filterBookController
@@ -49,7 +51,7 @@ routes.get(
 
 // Sort books
 routes.get(
-    '/sort',
+    "/sort",
     authentication,
     authorization(allRoles),
     sortBookController
@@ -57,7 +59,7 @@ routes.get(
 
 // Paginate books
 routes.get(
-    '/paginate',
+    "/paginate",
     authentication,
     authorization(allRoles),
     paginateBookController
@@ -65,7 +67,7 @@ routes.get(
 
 // Fetch all books
 routes.get(
-    '/',
+    "/",
     authentication,
     authorization(allRoles),
     allBookFetchController
@@ -73,7 +75,7 @@ routes.get(
 
 // Fetch single book
 routes.get(
-    '/:id',
+    "/:id",
     authentication,
     authorization(allRoles),
     singleBookFetchController
@@ -81,7 +83,7 @@ routes.get(
 
 // Update book
 routes.put(
-    '/:id',
+    "/:id",
     authentication,
     authorization(staffRoles),
     bookUpdateController
@@ -89,7 +91,7 @@ routes.put(
 
 // Delete book
 routes.delete(
-    '/:id',
+    "/:id",
     authentication,
     authorization(staffRoles),
     bookDeleteController

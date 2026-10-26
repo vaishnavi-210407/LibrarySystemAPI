@@ -107,12 +107,8 @@ const bookCreateController = async (req, res) => {
             });
         }
 
+        
         const bookData = {
-            ...req.body,
-            image: req.file ? `/uploads/${req.file.filename}` : null,
-        };
-
-        const book = await bookModel.create({
             categoryId,
             name,
             description,
@@ -120,8 +116,12 @@ const bookCreateController = async (req, res) => {
             ISBN,
             publisher,
             language,
-            publicationYear: Number(publicationYear)
-        });
+            publicationYear: Number(publicationYear),
+            image: req.file ? `/uploads/${req.file.filename}` : null
+        };
+
+        const book = await bookModel.create(bookData);
+
 
         return res.status(201).json({
             message: 'Book created successfully.',
